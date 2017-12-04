@@ -10,7 +10,7 @@ DataCenterComponent::~DataCenterComponent()
 
 }
 
-void DataCenterComponent::processRequest()
+int DataCenterComponent::processRequest()
 {
 
 }

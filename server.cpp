@@ -10,7 +10,7 @@ Server::~Server()
 
 }
 
-void Server::processRequest()
+int Server::processRequest()
 {
 
 }

@@ -8,9 +8,9 @@ class Server : public DataCenterComponent
 public:
     explicit Server(QObject *parent = 0, bool ssd = false);
     ~Server();
+    int processRequest();
 
 public slots:
-    void processRequest();
 };
 
 #endif // SERVER_H

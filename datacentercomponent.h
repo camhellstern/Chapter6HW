@@ -11,12 +11,12 @@ class DataCenterComponent : public QObject
 public:
     explicit DataCenterComponent(QObject *parent = 0);
     virtual ~DataCenterComponent();
+    virtual int processRequest();
 
 signals:
     void sendToNext();
 
 public slots:
-    virtual void processRequest();
 };
 
 #endif // DATACENTERCOMPONENT_H

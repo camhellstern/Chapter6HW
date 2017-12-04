@@ -10,7 +10,7 @@ public:
     explicit Router(QObject *parent = 0, int dramSize = 1, int storageParam = 1);
     ~Router();
     int routerCost();
-
+    int processRequest();
 private:
     LoadBalancer *lb1;
     LoadBalancer *lb2;

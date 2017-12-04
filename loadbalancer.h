@@ -12,11 +12,11 @@ public:
     explicit LoadBalancer(QObject *parent = 0, int dramSize = 4, bool ssd = false);
     ~LoadBalancer();
     int lbCost();
+    int processRequest();
 
 signals:
 
 public slots:
-    void processRequest();
 
 private:
     EthernetSwitch *switch1;

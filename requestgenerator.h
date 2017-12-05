@@ -1,3 +1,7 @@
+#ifndef REQUEST_GENERATOR_H
+#define REQUEST_GENERATOR_H
+
+
 #include <QThread>
 #include <QObject>
 #include <random>
@@ -48,3 +52,5 @@ signals:
     void movie(int &movieNum);
 
 };
+
+#endif

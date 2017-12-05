@@ -1,7 +1,8 @@
 #ifndef REQUEST_GENERATOR_H
 #define REQUEST_GENERATOR_H
 
-
+//QThread approach
+/*
 #include <QThread>
 #include <QObject>
 #include <random>
@@ -52,5 +53,21 @@ signals:
     void movie(int &movieNum);
 
 };
+*/
+
+class Request_Generator{
+    
+ public:
+    int getIp();
+    int getPackage();
+    int getMovie();
+    
+ private:
+    int ip=0;
+    int package=0;
+    int movie=0;
+    
+};
 
 #endif
+

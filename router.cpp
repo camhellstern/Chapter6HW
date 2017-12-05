@@ -82,11 +82,12 @@ Router::~Router()
 
 }
 
-int Router::processRequest() {
-    return 0;
-}
-
 int Router::routerCost()
 {
     return cost;
+}
+
+int Router::processRequest()
+{
+    return 0;
 }

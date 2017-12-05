@@ -4,13 +4,15 @@ ServerRack::ServerRack(QObject *parent, int dramSize, bool ssd) : DataCenterComp
 {
     //EthernetSwitch *m_switch = new EthernetSwitch(this);
     //components.push_back(m_switch);
-    cost = 0;
-    for(int i=0;i<47;i++)
+    for(int i=0;i<46;i++)
     {
-        Server *s = new Server(this, ssd);
+        Server *s = new Server(this, dramSize, ssd, (i*320)+1, (i*320)+321);
         servers.push_back(s);
-        cost += SERVERCOST;
+        cost += s->serverCost();
     }
+    Server *last = new Server(this, dramSize, ssd, 14721, 15000);
+    servers.push_back(last);
+    cost += last->serverCost();
 }
 
 ServerRack::~ServerRack()
@@ -21,4 +23,9 @@ ServerRack::~ServerRack()
 int ServerRack::rackCost()
 {
     return cost;
+}
+
+int ServerRack::processRequest()
+{
+    return 0;
 }

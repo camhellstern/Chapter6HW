@@ -3,7 +3,11 @@
 
 #include <QObject>
 #include <QtTest/qtest.h>
-#include <QJsonObject>
+
+typedef struct{
+    int movieNumber;
+    int packetNumber;
+} RequestPacket;
 
 class DataCenterComponent : public QObject
 {
@@ -11,12 +15,12 @@ class DataCenterComponent : public QObject
 public:
     explicit DataCenterComponent(QObject *parent = 0);
     virtual ~DataCenterComponent();
-    virtual int processRequest();
 
 signals:
     void sendToNext();
 
 public slots:
+    virtual int processRequest();
 };
 
 #endif // DATACENTERCOMPONENT_H

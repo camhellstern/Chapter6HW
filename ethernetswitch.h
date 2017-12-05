@@ -12,11 +12,11 @@ public:
     explicit EthernetSwitch(QObject *parent = 0, int dramSize = 4, bool ssd = false);
     ~EthernetSwitch();
     int switchCost();
-    int processRequest();
 
 signals:
 
 public slots:
+    int processRequest();
 
 private:
     int cost;

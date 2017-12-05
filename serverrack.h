@@ -12,6 +12,9 @@ public:
     ~ServerRack();
     int rackCost();
 
+public slots:
+    int processRequest();
+
 
 private:
     QList<Server *> servers;

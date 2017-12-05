@@ -12,5 +12,5 @@ DataCenterComponent::~DataCenterComponent()
 
 int DataCenterComponent::processRequest()
 {
-
+    return 0;
 }

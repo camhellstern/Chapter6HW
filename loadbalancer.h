@@ -12,17 +12,17 @@ public:
     explicit LoadBalancer(QObject *parent = 0, int dramSize = 4, bool ssd = false);
     ~LoadBalancer();
     int lbCost();
-    int processRequest();
 
 signals:
 
 public slots:
+    int processRequest();
 
 private:
     EthernetSwitch *switch1;
     EthernetSwitch *switch2;
-    QList<QJsonObject> switch1Requests;
-    QList<QJsonObject> switch2Requests;
+    QList<RequestPacket> switch1Requests;
+    QList<RequestPacket> switch2Requests;
     int cost;
 };
 

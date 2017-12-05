@@ -3,11 +3,8 @@
 
 #include <QObject>
 #include <QtTest/qtest.h>
+#include <globalvalues.h>
 
-typedef struct{
-    int movieNumber;
-    int packetNumber;
-} RequestPacket;
 
 class DataCenterComponent : public QObject
 {
@@ -20,7 +17,7 @@ signals:
     void sendToNext();
 
 public slots:
-    virtual int processRequest();
+    virtual int processRequest(RequestPacket request);
 };
 
 #endif // DATACENTERCOMPONENT_H

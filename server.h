@@ -1,27 +1,33 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <datacentercomponent.h>
+#include <globalvalues.h>
+#include <QObject>
 #include <server.h>
 #include <QList>
 
-class Server : public DataCenterComponent
+class Server : public QObject
 {
+    Q_OBJECT
 public:
     explicit Server(QObject *parent = 0, int dramSize = 4, bool ssd = false, int start = 1, int end = 320);
     ~Server();
     int serverCost();
 
+signals:
+    void sendResponse(ResponseType response);
+
 public slots:
-    int processRequest();
+    void processRequest(RequestPacket request);
 
 private:
-    QList<RequestPacket> requests;
+    QList<RequestPacket> dram;
     int cost;
     int maxDRAMEntries;
     int DRAMEntries;
     int movieRangeStart;
     int movieRangeEnd;
+    bool isSSD;
 
 };
 

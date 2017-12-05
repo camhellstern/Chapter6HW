@@ -1,10 +1,11 @@
 #include <QCoreApplication>
 #include <QTime>
 #include <datacenter.h>
+#include <globalvalues.h>
 
 
-#define DRAMLEVEL 3
-#define STORAGELEVEL 3
+#define DRAMLEVEL 1
+#define STORAGELEVEL 1
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
@@ -37,6 +38,15 @@ int main(int argc, char *argv[])
     }
 
     DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL);
+    RequestPacket request;
+    request.ipAddress = 1;
+    request.movieNumber = 1;
+    request.packetNumber = 1;
+    data->processRequest(request);
+    data->processRequest(request);
+
+    while(data->completedRequests() < 1);
+    printf("Response Time:\n");
 
 
     return a.exec();

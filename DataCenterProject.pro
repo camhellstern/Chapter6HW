@@ -25,4 +25,5 @@ HEADERS += \
     datacenter.h \
     serverrack.h \
     server.h \
-    router.h
+    router.h \
+    globalvalues.h

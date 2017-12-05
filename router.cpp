@@ -1,7 +1,8 @@
 #include "router.h"
 
-Router::Router(QObject *parent, int dramSize, int storageParam) : DataCenterComponent(parent)
+Router::Router(QObject *parent, int dramSize, int storageParam) : QObject(parent)
 {
+    cost = 0;
     if(dramSize == 1)
     {
         if(storageParam == 1)
@@ -75,6 +76,10 @@ Router::Router(QObject *parent, int dramSize, int storageParam) : DataCenterComp
         }
     }
     cost = lb1->lbCost() + lb2->lbCost();
+    connect(this, &Router::sendLB1, lb1, &LoadBalancer::processRequest);
+    connect(this, &Router::sendLB2, lb2, &LoadBalancer::processRequest);
+    connect(lb1, &LoadBalancer::sendResponse, this, &Router::processResponse);
+    connect(lb2, &LoadBalancer::sendResponse, this, &Router::processResponse);
 }
 
 Router::~Router()
@@ -87,7 +92,24 @@ int Router::routerCost()
     return cost;
 }
 
-int Router::processRequest()
+void Router::processRequest(RequestPacket request)
 {
-    return 0;
+    if(request.ipAddress >= ipStart && request.ipAddress <= ipEnd)
+    {
+        if(request.ipAddress <= (ipStart+ipEnd)/2)
+            emit sendLB1(request);
+        else
+            emit sendLB2(request);
+    }
+}
+
+void Router::setIPRange(int startIP, int endIP)
+{
+    ipStart = startIP;
+    ipEnd = endIP;
+}
+
+void Router::processResponse(ResponseType response)
+{
+    emit sendResponse(response);
 }

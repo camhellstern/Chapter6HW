@@ -1,7 +1,8 @@
 #include "server.h"
 
-Server::Server(QObject *parent, int dramSize, bool ssd, int start, int end) : DataCenterComponent(parent), movieRangeStart(start), movieRangeEnd(end)
+Server::Server(QObject *parent, int dramSize, bool ssd, int start, int end) : QObject(parent), movieRangeStart(start), movieRangeEnd(end)
 {
+    cost = 0;
     if(dramSize == 4)
     {
         if(ssd == false)
@@ -26,6 +27,7 @@ Server::Server(QObject *parent, int dramSize, bool ssd, int start, int end) : Da
             cost = 286 + 462;
         maxDRAMEntries = 16000;
     }
+    isSSD = ssd;
 }
 
 Server::~Server()
@@ -33,9 +35,64 @@ Server::~Server()
 
 }
 
-int Server::processRequest()
+void Server::processRequest(RequestPacket request)
 {
-    return 0;
+    if(request.movieNumber >= movieRangeStart && request.movieNumber <= movieRangeEnd)
+    {
+        ResponseType response;
+        if(dram.size() == 0)
+        {
+            dram.push_back(request);
+            if(isSSD)
+            {
+                response.responseTime = SSDDELAY;
+                emit sendResponse(response);
+            }
+            else
+            {
+                response.responseTime = HDDDELAY;
+                emit sendResponse(response);
+            }
+        }
+        else
+        {
+            for(int i=0;i<dram.size();i++)
+            {
+                if(dram.at(i).movieNumber == request.movieNumber && dram.at(i).packetNumber == request.packetNumber)
+                {
+                    response.responseTime = DRAMDELAY;
+                    emit sendResponse(response);
+                }
+            }
+            if(dram.size() < maxDRAMEntries)
+            {
+                dram.push_back(request);
+                if(isSSD)
+                {
+                    response.responseTime = SSDDELAY;
+                }
+                else
+                {
+                    response.responseTime = HDDDELAY;
+                }
+            }
+            else
+            {
+                dram.pop_front();
+                dram.push_back(request);
+                if(isSSD)
+                {
+                    response.responseTime = SSDDELAY;
+                    emit sendResponse(response);
+                }
+                else
+                {
+                    response.responseTime = HDDDELAY;
+                    emit sendResponse(response);
+                }
+            }
+        }
+    }
 }
 
 int Server::serverCost()

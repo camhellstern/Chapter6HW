@@ -1,11 +1,12 @@
 #ifndef REQUEST_GENERATOR_H
 #define REQUEST_GENERATOR_H
 
+#include <random>
+
 //QThread approach
 /*
 #include <QThread>
 #include <QObject>
-#include <random>
 
 class request: public QObject
 {
@@ -55,6 +56,7 @@ signals:
 };
 */
 
+//Sequential approach
 class Request_Generator{
     
  public:
@@ -66,6 +68,8 @@ class Request_Generator{
     int ip=0;
     int package=0;
     int movie=0;
+    
+    void randGenerator();
     
 };
 

@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     datacenter.cpp \
     serverrack.cpp \
     server.cpp \
-    router.cpp
+    router.cpp \
+    user.cpp
 
 HEADERS += \
     datacentercomponent.h \
@@ -26,4 +27,5 @@ HEADERS += \
     serverrack.h \
     server.h \
     router.h \
-    globalvalues.h
+    globalvalues.h \
+    user.h

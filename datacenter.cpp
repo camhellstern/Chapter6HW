@@ -3,6 +3,8 @@
 DataCenter::DataCenter(QObject *parent, int dramParam, int storageParam) : QObject(parent)
 {
     int cost = 0;
+    responseCount = 0;
+    runningTotal = 0;
     while(cost < baseCost)
     {
         Router *r = new Router(this, dramParam, storageParam);
@@ -41,9 +43,15 @@ void DataCenter::processRequest(RequestPacket request)
 void DataCenter::processResponse(ResponseType response)
 {
     responses.push_back(&response);
+    responseCount++;
+    runningTotal += response.responseTime;
 }
 
 int DataCenter::completedRequests()
 {
     return responses.size();
+}
+
+int DataCenter::averageResponseTime() {
+    return int(runningTotal / responseCount);
 }

@@ -69,9 +69,7 @@ int main(int argc, char *argv[])
         printf("DONE\n");
     }
 
-    while(data->completedRequests() < 1);
-    printf("Response Time:\n");
-
+    printf("Response Time:\n %d \n",data->averageResponseTime());
 
     return a.exec();
 }

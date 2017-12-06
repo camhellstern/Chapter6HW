@@ -14,6 +14,7 @@ public:
     explicit DataCenter(QObject *parent = 0, int dramParam = 1, int storageParam = 1);
     ~DataCenter();
     int completedRequests();
+    int averageResponseTime();
 
 signals:
     void sendRequest(RequestPacket request);
@@ -26,6 +27,8 @@ private:
     QList<Router *> routers;
     int routerCount;
     int baseCost =11650380;
+    int responseCount;
+    int runningTotal;
 };
 
 #endif // DATACENTER_H

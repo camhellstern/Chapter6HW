@@ -50,11 +50,10 @@ int main(int argc, char *argv[])
         else
             printf("DRAM Capacity: 32GB, Storage Format: All SSD\n");
     }
-    printf("fuckyou");
+
     DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL);
-    printf("ping");
+
     User userGroup[USERS];
-    printf("pong");
 
     //sanity check
     printf("IP: %d, Movie: %d, Packet: %d\n", userGroup[0].ipAddress, userGroup[0].movieNumber, userGroup[0].packetNumber);

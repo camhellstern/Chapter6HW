@@ -3,11 +3,11 @@
 DataCenter::DataCenter(QObject *parent, int dramParam, int storageParam) : QObject(parent)
 {
     int cost = 0;
-    while(cost < baseCost())
+    while(cost < baseCost)
     {
         Router *r = new Router(this, dramParam, storageParam);
         cost += r->routerCost();
-        if(cost >= baseCost())
+        if(cost >= baseCost)
             break;
         else{
             routers.push_back(r);

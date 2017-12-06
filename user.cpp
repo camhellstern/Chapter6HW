@@ -1,4 +1,6 @@
 #include "user.h"
+#include "stdlib.h"
+#include "random"
 
 User::User()
 {
@@ -10,18 +12,19 @@ void User::getSession() {
     this->packetNumber = this->generatePacketNumber();
 }
 
-void User::issueRequest() {
+RequestPacket User::getRequest() {
     //if we finished the movie start a new one
     if(this->packetNumber > 700) {
         getSession();
     }
-    RequestPacket packet = new RequestPacket;
+    RequestPacket packet;
     packet.ipAddress = this->ipAddress;
     packet.movieNumber = this->movieNumber;
     packet.packetNumber = this->packetNumber;
     //issue packet to farm
     //request next packet
     this->packetNumber += 1;
+    return packet;
 }
 
 int User::generateIP() {

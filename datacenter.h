@@ -11,7 +11,6 @@ class DataCenter : public QObject
 {
     Q_OBJECT
 public:
-    static int baseCost() {return 11650380;}
     explicit DataCenter(QObject *parent = 0, int dramParam = 1, int storageParam = 1);
     ~DataCenter();
     int completedRequests();
@@ -26,6 +25,7 @@ private:
     QList<ResponseType *> responses;
     QList<Router *> routers;
     int routerCount;
+    int baseCost =11650380;
 };
 
 #endif // DATACENTER_H

@@ -1,14 +1,28 @@
 #include <QCoreApplication>
 #include <QTime>
+#include "user.h"
 #include <datacenter.h>
 #include <globalvalues.h>
 
 
-#define DRAMLEVEL 1
-#define STORAGELEVEL 1
+int DRAMLEVEL;
+int STORAGELEVEL;
+int CYCLES;
+int USERS;
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
+    if(argc != 5) {
+        printf("USAGE - DataCenterProject <DRAMLEVEL 1-3> <STORAGELEVEL 1-3> <CYCLES (INT)>");
+    } else {
+        DRAMLEVEL =  QString(argv[1]).toInt();
+        STORAGELEVEL = QString(argv[2]).toInt();
+        CYCLES = QString(argv[3]).toInt();
+        USERS = QString(argv[4]).toInt();
+    }
+
     if(DRAMLEVEL == 1)
     {
         if(STORAGELEVEL == 1)
@@ -36,14 +50,25 @@ int main(int argc, char *argv[])
         else
             printf("DRAM Capacity: 32GB, Storage Format: All SSD\n");
     }
-
+    printf("fuckyou");
     DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL);
-    RequestPacket request;
-    request.ipAddress = 1;
-    request.movieNumber = 1;
-    request.packetNumber = 1;
-    data->processRequest(request);
-    data->processRequest(request);
+    printf("ping");
+    User userGroup[USERS];
+    printf("pong");
+
+    //sanity check
+    printf("IP: %d, Movie: %d, Packet: %d\n", userGroup[0].ipAddress, userGroup[0].movieNumber, userGroup[0].packetNumber);
+
+    //Get to making some requests
+    printf("Running %d cycles for %d users...\n\n", CYCLES, USERS);
+
+    for(int i = 0; i < CYCLES; i++) {
+        printf("Cycle %d...", i);
+        for(int j = 0; j < USERS; j++) {
+            data->processRequest(userGroup[j].getRequest());
+        }
+        printf("DONE\n");
+    }
 
     while(data->completedRequests() < 1);
     printf("Response Time:\n");

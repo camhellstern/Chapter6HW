@@ -61,7 +61,7 @@ void Server::processRequest(RequestPacket request)
                 if(dram.at(i).movieNumber == request.movieNumber && dram.at(i).packetNumber == request.packetNumber)
                 {
                     dram.removeAt(i);
-                    dram.push_back(i);
+                    dram.push_back(request);
                     response.responseTime = DRAMDELAY;
                     emit sendResponse(response);
                 }

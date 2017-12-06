@@ -5,16 +5,16 @@
 
 class User
 {
-public:
+private :
+    void getSession();
     int generateMovieNumber();
     int generateIP();
     int generatePacketNumber();
-
-    void getSession();
-    void issueRequest();
-
+public:
+    RequestPacket getRequest();
     User();
 
+    //Object variables
     int ipAddress;
     int serverNumber;
     int movieNumber;

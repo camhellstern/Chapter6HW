@@ -37,20 +37,20 @@ Server::~Server()
 
 void Server::processRequest(RequestPacket request)
 {
-    if(request.movieNumber >= movieRangeStart && request.movieNumber <= movieRangeEnd)
+    if(request.serverNumber == mNumber)
     {
-        ResponseType response;
+        ResponseType *response = new ResponseType;
         if(dram.size() == 0)
         {
             dram.push_back(request);
             if(isSSD)
             {
-                response.responseTime = SSDDELAY;
+                response->responseTime = SSDDELAY;
                 emit sendResponse(response);
             }
             else
             {
-                response.responseTime = HDDDELAY;
+                response->responseTime = HDDDELAY;
                 emit sendResponse(response);
             }
         }
@@ -60,9 +60,10 @@ void Server::processRequest(RequestPacket request)
             {
                 if(dram.at(i).movieNumber == request.movieNumber && dram.at(i).packetNumber == request.packetNumber)
                 {
+                    RequestPacket temp = dram.at(i);
                     dram.removeAt(i);
-                    dram.push_back(request);
-                    response.responseTime = DRAMDELAY;
+                    dram.push_back(temp);
+                    response->responseTime = DRAMDELAY;
                     emit sendResponse(response);
                 }
             }
@@ -71,11 +72,11 @@ void Server::processRequest(RequestPacket request)
                 dram.push_back(request);
                 if(isSSD)
                 {
-                    response.responseTime = SSDDELAY;
+                    response->responseTime = SSDDELAY;
                 }
                 else
                 {
-                    response.responseTime = HDDDELAY;
+                    response->responseTime = HDDDELAY;
                 }
             }
             else
@@ -84,12 +85,12 @@ void Server::processRequest(RequestPacket request)
                 dram.push_back(request);
                 if(isSSD)
                 {
-                    response.responseTime = SSDDELAY;
+                    response->responseTime = SSDDELAY;
                     emit sendResponse(response);
                 }
                 else
                 {
-                    response.responseTime = HDDDELAY;
+                    response->responseTime = HDDDELAY;
                     emit sendResponse(response);
                 }
             }
@@ -100,4 +101,9 @@ void Server::processRequest(RequestPacket request)
 int Server::serverCost()
 {
     return cost;
+}
+
+void Server::setNumber(int serverNumber)
+{
+    mNumber = serverNumber;
 }

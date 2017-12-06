@@ -1,6 +1,6 @@
 #include "datacenter.h"
 
-DataCenter::DataCenter(QObject *parent, int dramParam, int storageParam) : QObject(parent)
+DataCenter::DataCenter(QObject *parent, int dramParam, int storageParam, int users) : QObject(parent)
 {
     int cost = 0;
     responseCount = 0;
@@ -18,12 +18,12 @@ DataCenter::DataCenter(QObject *parent, int dramParam, int storageParam) : QObje
         }
     }
     routerCount = routers.size();
-    int routerRange = 10000000/routerCount;
+    int routerRange = users/routerCount;
     for(int i=0;i<routerCount;i++)
     {
         int routerStart = i*routerRange;
-        if(routerStart + routerRange > 10000000)
-            routers.at(i)->setIPRange(routerStart, 10000000);
+        if(routerStart + routerRange > users)
+            routers.at(i)->setIPRange(routerStart, users);
         else
             routers.at(i)->setIPRange(routerStart, routerStart+routerRange);
     }
@@ -40,11 +40,11 @@ void DataCenter::processRequest(RequestPacket request)
     //return 0;
 }
 
-void DataCenter::processResponse(ResponseType response)
+void DataCenter::processResponse(ResponseType *response)
 {
-    responses.push_back(&response);
+    responses.push_back(response);
     responseCount++;
-    runningTotal += response.responseTime;
+    runningTotal += response->responseTime;
 }
 
 int DataCenter::completedRequests()
@@ -52,15 +52,15 @@ int DataCenter::completedRequests()
     return responses.size();
 }
 
-int DataCenter::averageResponseTime() {
-    return int(runningTotal / responseCount);
+double DataCenter::averageResponseTime() {
+    return (runningTotal / responseCount);
 }
 
-int DataCenter::ninetyFifthPercentileNormal()
+double DataCenter::ninetyFifthPercentileNormal()
 {
-    int mean = averageResponseTime();
-    long stdVar = 0;
-    long meanStdVar = 0;
+    double mean = averageResponseTime();
+    double stdVar = 0;
+    double meanStdVar = 0;
 
     for (ResponseType * r: responses)
     {
@@ -72,9 +72,9 @@ int DataCenter::ninetyFifthPercentileNormal()
     return mean + 1.96 * meanStdVar;
 }
 
-int DataCenter::ninetyFifthPercentileExponential()
+double DataCenter::ninetyFifthPercentileExponential()
 {
-    int rho = averageResponseTime() / (routerCount * 46);
-    int t = averageResponseTime()/(1.0-rho);
+    double rho = averageResponseTime() / (routerCount * 47 * 62 * 4);
+    double t = averageResponseTime()/(1.0-rho);
     return t * log(100.0/(100.0-95.0));
 } // https://pdfs.semanticscholar.org/1d49/6ff7cd1b810cc56f189de861b6efd484618d.pdf

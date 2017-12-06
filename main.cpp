@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
             printf("DRAM Capacity: 32GB, Storage Format: All SSD\n");
     }
 
-    DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL);
+    DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL, USERS);
 
-    User userGroup[USERS];
+    User *userGroup = new User[USERS];
 
     //sanity check
     printf("IP: %d, Movie: %d, Packet: %d\n", userGroup[0].ipAddress, userGroup[0].movieNumber, userGroup[0].packetNumber);
@@ -69,9 +69,11 @@ int main(int argc, char *argv[])
         printf("DONE\n");
     }
 
-    printf("Response Time:\n %d \n",data->averageResponseTime());
-    printf("Normal Distribution:\n95 percent of responses are below: %d \n", data->ninetyFifthPercentileNormal());
-    printf("Exponential Poisson Distribution:\n95 percent of responses are below: %d \n", data->ninetyFifthPercentileExponential());
+    //while(data->completedRequests() < (CYCLES*USERS));
+
+    printf("Response Time:\n %f \n",data->averageResponseTime());
+    printf("Normal Distribution:\n95 percent of responses are below: %f \n", data->ninetyFifthPercentileNormal());
+    printf("Exponential Poisson Distribution:\n95 percent of responses are below: %f \n", data->ninetyFifthPercentileExponential());
 
     return a.exec();
 }

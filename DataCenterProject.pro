@@ -17,6 +17,7 @@ SOURCES += main.cpp \
     serverrack.cpp \
     server.cpp \
     router.cpp \
+    requestgenerator.cpp \
     user.cpp
 
 HEADERS += \
@@ -28,4 +29,5 @@ HEADERS += \
     server.h \
     router.h \
     globalvalues.h \
+    requestgenerator.h \
     user.h

@@ -8,6 +8,7 @@ ServerRack::ServerRack(QObject *parent, int dramSize, bool ssd) : QObject(parent
     for(int i=0;i<46;i++)
     {
         Server *s = new Server(this, dramSize, ssd, (i*320)+1, (i*320)+321);
+        s->setNumber(i+1);
         servers.push_back(s);
         cost += s->serverCost();
         connect(this, &ServerRack::sendRequest, s, &Server::processRequest);
@@ -34,8 +35,8 @@ void ServerRack::processRequest(RequestPacket request)
     //return 0;
 }
 
-void ServerRack::processResponse(ResponseType response)
+void ServerRack::processResponse(ResponseType *response)
 {
-    response.responseTime += ESWITCHDELAY;
+    response->responseTime += ESWITCHDELAY;
     emit sendResponse(response);
 }

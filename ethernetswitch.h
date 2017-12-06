@@ -16,11 +16,11 @@ public:
     int switchCost();
 
 signals:
-    void sendResponse(ResponseType response);
+    void sendResponse(ResponseType *response);
 
 public slots:
     void processRequest(RequestPacket request);
-    void processResponse(ResponseType response);
+    void processResponse(ResponseType *response);
 
 private:
     int cost;

@@ -1,6 +1,6 @@
-#include "user.h"
-#include "stdlib.h"
-#include "random"
+#include <user.h>
+#include <stdlib.h>
+#include <random>
 
 User::User()
 {
@@ -10,6 +10,7 @@ User::User()
 void User::getSession() {
     this->movieNumber = this->generateMovieNumber();
     this->packetNumber = this->generatePacketNumber();
+    this->serverNumber = this->generateServerNumber();
 }
 
 RequestPacket User::getRequest() {
@@ -21,6 +22,7 @@ RequestPacket User::getRequest() {
     packet.ipAddress = this->ipAddress;
     packet.movieNumber = this->movieNumber;
     packet.packetNumber = this->packetNumber;
+    packet.serverNumber = this->serverNumber;
     //issue packet to farm
     //request next packet
     this->packetNumber += 1;
@@ -28,19 +30,25 @@ RequestPacket User::getRequest() {
 }
 
 int User::generateIP() {
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> ipDistribution(1,10000000);
+    static std::default_random_engine generator;
+    std::uniform_int_distribution<int> ipDistribution(1,10000);
     return ipDistribution(generator);
 }
 
 int User::generateMovieNumber() {
-    std::default_random_engine generator;
-    std::uniform_int_distribution<int> movieDistribution(1,15000); //Will be changed to exponential distribution
+    static std::default_random_engine generator;
+    std::exponential_distribution<> movieDistribution(0.035); //Will be changed to exponential distribution
     return movieDistribution(generator);
 }
 
 int User::generatePacketNumber() {
-    std::default_random_engine generator;
+    static std::default_random_engine generator;
       std::uniform_int_distribution<int> packageDistribution(1,700);
       return packageDistribution(generator);
+}
+
+int User::generateServerNumber() {
+    static std::default_random_engine generator;
+    std::uniform_int_distribution<int> serverDistribution(1, 47);
+    return serverDistribution(generator);
 }

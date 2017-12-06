@@ -16,11 +16,11 @@ public:
 
 signals:
     void sendRequest(RequestPacket request);
-    void sendResponse(ResponseType response);
+    void sendResponse(ResponseType *response);
 
 public slots:
     void processRequest(RequestPacket request);
-    void processResponse(ResponseType response);
+    void processResponse(ResponseType *response);
 
 
 private:

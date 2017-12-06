@@ -13,9 +13,10 @@ public:
     explicit Server(QObject *parent = 0, int dramSize = 4, bool ssd = false, int start = 1, int end = 320);
     ~Server();
     int serverCost();
+    void setNumber(int serverNumber);
 
 signals:
-    void sendResponse(ResponseType response);
+    void sendResponse(ResponseType *response);
 
 public slots:
     void processRequest(RequestPacket request);
@@ -28,6 +29,7 @@ private:
     int movieRangeStart;
     int movieRangeEnd;
     bool isSSD;
+    int mNumber;
 
 };
 

@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
-#include "globalvalues.h"
+#include <globalvalues.h>
 
 class User
 {
@@ -10,6 +10,7 @@ private :
     int generateMovieNumber();
     int generateIP();
     int generatePacketNumber();
+    int generateServerNumber();
 public:
     RequestPacket getRequest();
     User();

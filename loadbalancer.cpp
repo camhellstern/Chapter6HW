@@ -40,8 +40,8 @@ int LoadBalancer::lbCost()
     return cost;
 }
 
-void LoadBalancer::processResponse(ResponseType response)
+void LoadBalancer::processResponse(ResponseType *response)
 {
-    response.responseTime += LBDELAY;
+    response->responseTime += LBDELAY;
     emit sendResponse(response);
 }

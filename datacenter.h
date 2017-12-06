@@ -12,18 +12,18 @@ class DataCenter : public QObject
 {
     Q_OBJECT
 public:
-    explicit DataCenter(QObject *parent = 0, int dramParam = 1, int storageParam = 1);
+    explicit DataCenter(QObject *parent = 0, int dramParam = 1, int storageParam = 1, int users = 10000000);
     ~DataCenter();
     int completedRequests();
-    int averageResponseTime();
-    int ninetyFifthPercentileNormal();
-    int ninetyFifthPercentileExponential();
+    double averageResponseTime();
+    double ninetyFifthPercentileNormal();
+    double ninetyFifthPercentileExponential();
 
 signals:
     void sendRequest(RequestPacket request);
 public slots:
     void processRequest(RequestPacket request);
-    void processResponse(ResponseType response);
+    void processResponse(ResponseType *response);
 
 private:
     QList<ResponseType *> responses;
@@ -31,7 +31,7 @@ private:
     int routerCount;
     int baseCost =11650380;
     int responseCount;
-    int runningTotal;
+    double runningTotal;
 };
 
 #endif // DATACENTER_H

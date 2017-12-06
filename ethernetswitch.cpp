@@ -34,8 +34,8 @@ int EthernetSwitch::switchCost()
     return cost;
 }
 
-void EthernetSwitch::processResponse(ResponseType response)
+void EthernetSwitch::processResponse(ResponseType *response)
 {
-    response.responseTime += ESWITCHDELAY;
+    response->responseTime += ESWITCHDELAY;
     emit sendResponse(response);
 }

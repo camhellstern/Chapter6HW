@@ -109,7 +109,7 @@ void Router::setIPRange(int startIP, int endIP)
     ipEnd = endIP;
 }
 
-void Router::processResponse(ResponseType response)
+void Router::processResponse(ResponseType *response)
 {
     emit sendResponse(response);
 }

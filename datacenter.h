@@ -17,6 +17,7 @@ public:
     int completedRequests();
     int averageResponseTime();
     int ninetyFifthPercentileNormal();
+    int ninetyFifthPercentileExponential();
 
 signals:
     void sendRequest(RequestPacket request);

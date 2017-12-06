@@ -71,3 +71,10 @@ int DataCenter::ninetyFifthPercentileNormal()
     meanStdVar = stdVar / qPow(mean, 0.5);
     return mean + 1.96 * meanStdVar;
 }
+
+int DataCenter::ninetyFifthPercentileExponential()
+{
+    int rho = averageResponseTime() / (routerCount * 46);
+    int t = averageResponseTime()/(1.0-rho);
+    return t * log(100.0/(100.0-95.0));
+} // https://pdfs.semanticscholar.org/1d49/6ff7cd1b810cc56f189de861b6efd484618d.pdf

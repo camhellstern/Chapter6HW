@@ -55,3 +55,19 @@ int DataCenter::completedRequests()
 int DataCenter::averageResponseTime() {
     return int(runningTotal / responseCount);
 }
+
+int DataCenter::ninetyFifthPercentileNormal()
+{
+    int mean = averageResponseTime();
+    long stdVar = 0;
+    long meanStdVar = 0;
+
+    for (ResponseType * r: responses)
+    {
+        stdVar += qPow(r->responseTime - mean, 2);
+    }
+
+    stdVar = qPow(stdVar / (responses.length() - 1), 0.5);
+    meanStdVar = stdVar / qPow(mean, 0.5);
+    return mean + 1.96 * meanStdVar;
+}

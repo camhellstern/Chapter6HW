@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
     }
 
     printf("Response Time:\n %d \n",data->averageResponseTime());
+    printf("Normal Distribution:\n95 percent of responses are below: %d \n", data->ninetyFifthPercentileNormal());
 
     return a.exec();
 }

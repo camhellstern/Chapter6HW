@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QtMath>
 #include <globalvalues.h>
 #include <serverrack.h>
 #include <router.h>
@@ -15,6 +16,7 @@ public:
     ~DataCenter();
     int completedRequests();
     int averageResponseTime();
+    int ninetyFifthPercentileNormal();
 
 signals:
     void sendRequest(RequestPacket request);

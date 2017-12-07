@@ -74,7 +74,8 @@ double DataCenter::ninetyFifthPercentileNormal()
 
 double DataCenter::ninetyFifthPercentileExponential()
 {
-    double rho = averageResponseTime() / (routerCount * 47 * 62 * 4);
-    double t = averageResponseTime()/(1.0-rho);
-    return t * log(100.0/(100.0-95.0));
+    double mu = 4 / averageResponseTime();
+    double rho = 0.035 / (routerCount * 47 * 62 * 4 * mu);
+    double t = (1.0/mu)+(rho/(2.0*mu*(1.0-rho)));
+    return t * 2.0*((1.0/(mu*(1.0-rho)))*sqrt((rho/3.0)-(rho*rho/12.0)));
 } // https://pdfs.semanticscholar.org/1d49/6ff7cd1b810cc56f189de861b6efd484618d.pdf

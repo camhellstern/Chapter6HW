@@ -29,7 +29,7 @@ private:
     QList<ResponseType *> responses;
     QList<Router *> routers;
     int routerCount;
-    int baseCost =11650380;
+    int baseCost =31084520;
     int responseCount;
     double runningTotal;
 };

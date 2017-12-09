@@ -15,6 +15,7 @@ ServerRack::ServerRack(QObject *parent, int dramSize, bool ssd) : QObject(parent
         connect(s, &Server::sendResponse, this, &ServerRack::processResponse);
     }
     Server *last = new Server(this, dramSize, ssd, 14721, 15000);
+    last->setNumber(47);
     servers.push_back(last);
     cost += last->serverCost()+SWITCHCOST;
 }

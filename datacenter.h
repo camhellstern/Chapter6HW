@@ -15,6 +15,7 @@ public:
     explicit DataCenter(QObject *parent = 0, int dramParam = 1, int storageParam = 1, int users = 10000000);
     ~DataCenter();
     int completedRequests();
+    int getRouterCount();
     double averageResponseTime();
     double ninetyFifthPercentileNormal();
     double ninetyFifthPercentileExponential();

@@ -53,6 +53,8 @@ int main(int argc, char *argv[])
 
     DataCenter *data = new DataCenter(NULL, DRAMLEVEL, STORAGELEVEL, USERS);
 
+    printf("Created %d instances of model given current parameters\n", data->getRouterCount());
+
     User *userGroup = new User[USERS];
 
     //sanity check
@@ -62,11 +64,11 @@ int main(int argc, char *argv[])
     printf("Running %d cycles for %d users...\n\n", CYCLES, USERS);
 
     for(int i = 0; i < CYCLES; i++) {
-        printf("Cycle %d...", i);
+        //printf("Cycle %d...", i);
         for(int j = 0; j < USERS; j++) {
             data->processRequest(userGroup[j].getRequest());
         }
-        printf("DONE\n");
+        //printf("DONE\n");
     }
 
     //while(data->completedRequests() < (CYCLES*USERS));

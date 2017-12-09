@@ -75,7 +75,7 @@ Router::Router(QObject *parent, int dramSize, int storageParam) : QObject(parent
             lb2 = loadb2;
         }
     }
-    cost = lb1->lbCost() + lb2->lbCost();
+    cost = lb1->lbCost() + lb2->lbCost()+ROUTERCOST;
     connect(this, &Router::sendLB1, lb1, &LoadBalancer::processRequest);
     connect(this, &Router::sendLB2, lb2, &LoadBalancer::processRequest);
     connect(lb1, &LoadBalancer::sendResponse, this, &Router::processResponse);
